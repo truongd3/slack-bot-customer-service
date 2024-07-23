@@ -47,7 +47,7 @@ def message_count():
 def recommendation():
     data = request.form
     command_text = data.get('text')
-    answer = ai_util.getResponse(command_text)
+    answer = ai_util.getGeminiResponse()
     client.chat_postMessage(channel="#test", text=answer)
     return Response(), 200
 

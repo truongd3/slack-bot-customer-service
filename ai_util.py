@@ -1,23 +1,24 @@
 import openai
-openai.api_key = "sk-proj-VHNSMoTUcBMHw5ZJGRhbT3BlbkFJyYq8R1S0NxcoNwPyrBB0"
-# from openai import OpenAI
-# client = OpenAI()
 
-def getResponse(prompt):
-    response = openai.Completion.create(
-        engine = "gpt-3.5",  # Specify the engine (e.g., "text-davinci-003")
-        prompt = prompt,
-        max_tokens = 1000  # Adjust the maximum number of tokens in the response as needed
-    )
-    answer = response.choices[0].text.strip()
+system_content = "You are a travel agent. Be descriptive and helpful."
+user_content = "What is temperature in NYC?"
 
-    # completion = openai.chat.completions.create(
-    #     model = "gpt-3.5",
-    #     messages = [
-    #         {"role": "system", "content": "You are a helpful assistant."},
-    #         {"role": "user", "content": "Hello!"}
-    #     ]
-    # )
+client = openai.OpenAI(
+    api_key="8ecb7a4bf1db4fc2ba3a29d5015284ff",
+    base_url="https://api.aimlapi.com",
+)
 
-    # print(completion.choices[0].message)
-    return answer
+chat_completion = client.chat.completions.create(
+    model="mistralai/Mistral-7B-Instruct-v0.2",
+    messages=[
+        {"role": "system", "content": system_content},
+        {"role": "user", "content": user_content},
+    ],
+    temperature=0.7,
+    max_tokens=128,
+)
+
+response = chat_completion.choices[0].message.content
+print("AI/ML API:\n", response)
+
+def getResponse
