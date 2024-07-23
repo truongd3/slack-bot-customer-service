@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from flask import Flask, request, Response
 from slackeventsapi import SlackEventAdapter
 
+import ai_util
+
 env_path = Path(".")/".env"
 
 load_dotenv(dotenv_path = env_path)
@@ -39,6 +41,14 @@ def message_count():
     channel_id = data.get("channel_id")
     message_count = message_counts.get(user_id, 0)
     client.chat_postMessage(channel=channel_id, text=f"Number of messages: {message_count}")
+    return Response(), 200
+
+@app.route("/recommendation", methods=["GET", "POST"])
+def recommendation():
+    data = request.form
+    command_text = data.get('text')
+    answer = ai_util.getResponse(command_text)
+    client.chat_postMessage(channel="#test", text=answer)
     return Response(), 200
 
 if __name__ == "__main__":
