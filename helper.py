@@ -1,4 +1,7 @@
 import re
+import csv
+
+db = "CustomerList.csv"
 
 def split(text):
     '''
@@ -20,3 +23,16 @@ def split(text):
             return [match.group(3), match.group(4)]
     else:
         raise ValueError("The input text format is incorrect.")
+    
+def get_data_to_prompt():
+    pre_prompt = ""
+    with open(db, newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            rate = -1 if int(row["Rates"]) == 0 else float(row["SumRating"]) / int(row["Rates"])
+            if rate == -1:
+                pre_prompt += ("Company " + row["Company"] + " does " + row["ServiceType"] + " and does not have any rate yet; ")
+            else:
+                pre_prompt += ("Company " + row["Company"] + " does " + row["ServiceType"] + " and its rating is " + str(rate) + " from " + row["Rates"] + " users; ")
+            pre_prompt += "they offer " + row["Discount"] + f"% discount for Justworks employees.\n"
+    return pre_prompt
