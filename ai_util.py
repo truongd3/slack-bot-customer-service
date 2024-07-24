@@ -1,5 +1,4 @@
 import openai
-import csv
 import helper
 db = "CustomerList.csv"
 
