@@ -8,6 +8,7 @@ def split(text):
     Company Number --> [Company, Number]
     "Company A" Number --> [Company A, Number]
     Company A Number --> [Company A, Number]
+    Company ABC abc Number --> [Company ABC abc, Number]
     '''
     # Use regex to match a quoted company name and a number or an unquoted company name and a number
     if len(text) == 0:
