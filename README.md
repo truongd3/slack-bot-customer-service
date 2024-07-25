@@ -1,5 +1,7 @@
 # Customer-Service Slack Bot
 
+https://github.com/user-attachments/assets/2fd8df2e-b302-4ae1-b632-364c1b371abe
+
 ## Features
 
 - Built with Mistral v0.2 AI model
